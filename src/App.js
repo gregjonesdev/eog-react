@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import NowWhat from "./components/NowWhat";
+import Weather from "./components/Weather";
 
 const data = [
   {name: 'Mon', uv: 400, pv: 2400, amt: 2400},
@@ -57,6 +58,7 @@ const App = props => (
           Dang
         </Button>
         {renderLineChart}
+        <Weather />
         <NowWhat />
         <ToastContainer />
       </Wrapper>
