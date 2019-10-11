@@ -1,13 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Switch from '@material-ui/core/Switch';
+
+function handleChange(a) {
+  console.log(a)
+}
 
 const MetricSwitch = ({ name }) => (
-  <li>{ name }</li>
+  <li>
+    <Switch
+      checked
+      onChange={handleChange({name})}
+      value={name}
+      color="primary"
+      inputProps={{ 'aria-label': 'primary checkbox' }}
+    />
+    { name }
+  </li>
 )
 
 MetricSwitch.propTypes = {
   onClick: PropTypes.func.isRequired,
-  description: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired
 }
 
 export default MetricSwitch

@@ -16,9 +16,9 @@ const query = `
   }
 `;
 
-const getMetrics = state => {
-  return state.metrics;
-}
+  // const getMetrics = state => {
+  //   return state.metrics;
+  // }
 
 export default () => {
   return (
@@ -29,11 +29,8 @@ export default () => {
 };
 
 
-const Metrics = () => {
+const Metrics = ({ metrics, onSwitch }) => {
   const dispatch = useDispatch();
-  const metrics = useSelector(
-    getMetrics
-  );
 
   const [result] = useQuery({query});
 
@@ -44,8 +41,11 @@ const Metrics = () => {
   });
 
   const classes = useStyles()
-  console.log(metrics)
+
   const { fetching, data, error } = result;
+  console.log('who me?')
+  console.log(result)
+
   useEffect(
     () => {
       if (error) {
@@ -70,7 +70,7 @@ const Metrics = () => {
       <CardContent>
       <ul>
         {items.map((metric, index) => (
-          <MetricSwitch key={index} name={metric} />
+          <MetricSwitch key={index} name={metric} onClick={() => onSwitch(index)}/>
         ))}
       </ul>
       </CardContent>

@@ -44,7 +44,7 @@ const App = props => (
       <Wrapper>
         <Header />
         <Grid container spacing={2} direction="row"
-          alignItems="top"
+          alignItems="baseline"
         >
           <Grid item xs={12} md={2}>
             <Metrics />
