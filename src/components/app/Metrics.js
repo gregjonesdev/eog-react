@@ -38,7 +38,7 @@ const Metrics = () => {
 
   const useStyles = makeStyles({
     card: {
-      margin: "5% 5% 5% 5%"
+      margin: "5% 1% 5% 1%"
     }
   });
 

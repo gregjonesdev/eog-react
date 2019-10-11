@@ -24,7 +24,7 @@ const renderLineChart = (
 
 const useStyles = makeStyles({
   card: {
-    margin: "1% 1% 5% 0%"
+    margin: "1% 1% 5% 1%"
   }
 });
 
