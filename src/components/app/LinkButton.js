@@ -16,12 +16,13 @@ const LinkButton = ({ active, children, onClick }) => {
   const classes = useStyles();
 
   if (active) {
-    return <Button variant="outlined" disabled className={classes.button}>{children}</Button>
+    return <Button variant="outlined" color="default" className={classes.button}>{children}</Button>
   }
 
   return (
     <Button
       variant="outlined"
+      color="primary"
       className={classes.button}
       onClick={e => {
         e.preventDefault()

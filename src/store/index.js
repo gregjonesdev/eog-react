@@ -4,12 +4,14 @@ import createSagaMiddleware from "redux-saga";
 import sagas from "./sagas";
 import weatherReducer from "./reducers/Weather";
 import todos from './reducers/todos';
+import metrics from './reducers/metrics';
 import visibilityFilter from './reducers/visibilityFilter';
 
 export default () => {
   const rootReducer = combineReducers({
     weather: weatherReducer,
     todos,
+    metrics,
     visibilityFilter,
   });
 

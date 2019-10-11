@@ -5,11 +5,12 @@ import { ToastContainer } from "react-toastify";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "./components/Header";
-import Wrapper from "./components/Wrapper";
-import NowWhat from "./components/NowWhat";
-import Chart from './components/Chart';
-import Footer from './components/Footer';
+import Header from "./components/app/Header";
+import Wrapper from "./components/app/Wrapper";
+import NowWhat from "./components/app/NowWhat";
+import Chart from './components/app/Chart';
+import Metrics from './components/app/Metrics';
+import Footer from './components/app/Footer';
 import AddTodo from './containers/AddTodo';
 import VisibleTodoList from './containers/VisibleTodoList';
 
@@ -40,7 +41,7 @@ const App = props => (
     <Provider store={store}>
       <Wrapper>
         <Header />
-
+        <Metrics />
         <Chart />
         <AddTodo />
         <VisibleTodoList />
