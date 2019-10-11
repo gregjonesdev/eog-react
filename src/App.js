@@ -5,7 +5,6 @@ import { ToastContainer } from "react-toastify";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Button from '@material-ui/core/Button';
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
@@ -50,15 +49,15 @@ const theme = createMuiTheme({
   }
 });
 
+console.log(store.getState())
+
 const App = props => (
   <MuiThemeProvider theme={theme}>
     <CssBaseline />
     <Provider store={store}>
       <Wrapper>
         <Header />
-        <Button variant="contained" color="primary">
-          Dang
-        </Button>
+
         {renderLineChart}
         <AddTodo />
         <VisibleTodoList />

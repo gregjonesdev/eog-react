@@ -3,10 +3,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import sagas from "./sagas";
 import weatherReducer from "./reducers/Weather";
+import todos from './reducers/todos';
+import visibilityFilter from './reducers/visibilityFilter';
 
 export default () => {
   const rootReducer = combineReducers({
-    weather: weatherReducer
+    weather: weatherReducer,
+    todos,
+    visibilityFilter,
   });
 
   const composeEnhancers = composeWithDevTools({});
