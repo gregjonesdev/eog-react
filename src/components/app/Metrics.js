@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/metrics";
 import { Provider, client, useQuery } from "../../core/client";
+import Card from "@material-ui/core/Card";
+import CardHeader from "./CardHeader";
+import CardContent from "@material-ui/core/CardContent";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { makeStyles } from "@material-ui/core/styles";
+
 
 const query = `
   query {
@@ -31,6 +36,14 @@ const Metrics = () => {
 
   const [result] = useQuery({query});
 
+  const useStyles = makeStyles({
+    card: {
+      margin: "5% 5% 5% 5%"
+    }
+  });
+
+  const classes = useStyles()
+
   const { fetching, data, error } = result;
   useEffect(
     () => {
@@ -47,8 +60,10 @@ const Metrics = () => {
   if (fetching) return <LinearProgress />;
 
   return(
-    <div>
-      metrics
-    </div>
-  )
+    <Card className={classes.card}>
+      <CardHeader title="Metrics" />
+      <CardContent>
+
+      </CardContent>
+    </Card>)
 }

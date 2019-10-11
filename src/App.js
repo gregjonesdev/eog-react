@@ -13,6 +13,8 @@ import Metrics from './components/app/Metrics';
 import Footer from './components/app/Footer';
 import AddTodo from './containers/AddTodo';
 import VisibleTodoList from './containers/VisibleTodoList';
+import Grid from '@material-ui/core/Grid';
+
 
 
 const store = createStore();
@@ -41,12 +43,17 @@ const App = props => (
     <Provider store={store}>
       <Wrapper>
         <Header />
-        <Metrics />
-        <Chart />
-        <AddTodo />
-        <VisibleTodoList />
-        <Footer />
-        <NowWhat />
+        <Grid container spacing={2} direction="row"
+          alignItems="top"
+        >
+          <Grid item xs={12} md={2}>
+            <Metrics />
+          </Grid>
+          <Grid item xs={12} md={10}>
+            <Chart />
+          </Grid>
+        </Grid>
+
         <ToastContainer />
       </Wrapper>
     </Provider>

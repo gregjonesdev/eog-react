@@ -11,7 +11,7 @@ const data = [
   {name: 'Wed', uv: 475, pv: 2200, amt: 2500}, ];
 
 const renderLineChart = (
-  <LineChart width={800} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+  <LineChart width={600} height={300} data={data} margin={{ top: 0, right: 5, bottom: 5, left: 0 }}>
     <Line type="monotone" dataKey="uv" stroke="#347B98" />
     <Line type="monotone" dataKey="pv" stroke="#66B032" />
     <Line type="monotone" dataKey="amt" stroke="#B2D732" />
@@ -24,7 +24,7 @@ const renderLineChart = (
 
 const useStyles = makeStyles({
   card: {
-    margin: "1% 1% 5% 0%"
+    margin: "5% 5% 5% 5%"
   }
 });
 
