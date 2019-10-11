@@ -5,7 +5,11 @@ const initialState = {
 }
 
 const metricsSuccess = (state, action) => {
+  console.log("reducer")
+  console.log(state)
+  console.log(action)
   const { getMetrics } = action;
+  console.log(getMetrics)
   return getMetrics;
 }
 

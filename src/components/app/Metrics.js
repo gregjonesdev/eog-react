@@ -43,8 +43,7 @@ const Metrics = ({ metrics, onSwitch }) => {
   const classes = useStyles()
 
   const { fetching, data, error } = result;
-  console.log('who me?')
-  console.log(result)
+
 
   useEffect(
     () => {
@@ -54,7 +53,12 @@ const Metrics = ({ metrics, onSwitch }) => {
       }
       if (!data) return;
       const { getMetrics } = data;
-      dispatch({ type: actions.METRICS_SUCCESS, getMetrics });
+      const objectMetrics = {}
+      data.getMetrics.map(datum => (
+        objectMetrics[datum] = {'isActive': false}
+
+      ))
+      dispatch({ type: actions.METRICS_SUCCESS, objectMetrics });
     },
     [dispatch, data, error]
   );
@@ -62,13 +66,11 @@ const Metrics = ({ metrics, onSwitch }) => {
 
   const items = data.getMetrics
 
-
-
   return(
     <Card className={classes.card}>
       <CardHeader title="Metrics" />
       <CardContent>
-      <ul>
+      <ul style={{listStyleType: 'none'}}>
         {items.map((metric, index) => (
           <MetricSwitch key={index} name={metric} onClick={() => onSwitch(index)}/>
         ))}

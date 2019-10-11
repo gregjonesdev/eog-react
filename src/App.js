@@ -7,12 +7,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/app/Header";
 import Wrapper from "./components/app/Wrapper";
-import NowWhat from "./components/app/NowWhat";
 import Chart from './components/app/Chart';
 import Metrics from './components/app/Metrics';
-import Footer from './components/app/Footer';
-import AddTodo from './containers/AddTodo';
-import VisibleTodoList from './containers/VisibleTodoList';
 import Grid from '@material-ui/core/Grid';
 
 
