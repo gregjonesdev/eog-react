@@ -4,6 +4,7 @@ import * as actions from "../../store/actions/metrics";
 import { Provider, client, useQuery } from "../../core/client";
 import Card from "@material-ui/core/Card";
 import CardHeader from "./CardHeader";
+import MetricSwitch from "./MetricSwitch";
 import CardContent from "@material-ui/core/CardContent";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { makeStyles } from "@material-ui/core/styles";
@@ -43,7 +44,7 @@ const Metrics = () => {
   });
 
   const classes = useStyles()
-
+  console.log(metrics)
   const { fetching, data, error } = result;
   useEffect(
     () => {
@@ -59,11 +60,19 @@ const Metrics = () => {
   );
   if (fetching) return <LinearProgress />;
 
+  const items = data.getMetrics
+
+
+
   return(
     <Card className={classes.card}>
       <CardHeader title="Metrics" />
       <CardContent>
-
+      <ul>
+        {items.map((metric, index) => (
+          <MetricSwitch key={index} name={metric} />
+        ))}
+      </ul>
       </CardContent>
     </Card>)
 }
