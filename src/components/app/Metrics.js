@@ -17,6 +17,12 @@ const query = `
 `;
 
 
+const getMetrics = state => {
+  const { results } = state.metrics;
+  return {
+    results
+  };
+};
 
 export default () => {
   return (
@@ -31,6 +37,11 @@ const Metrics = () => {
   console.log('Metrics Component')
   const dispatch = useDispatch();
   const [result] = useQuery({query});
+
+
+  const { metrics } = useSelector(
+    getMetrics
+  );
 
   const useStyles = makeStyles({
     card: {
@@ -54,29 +65,17 @@ const Metrics = () => {
 
       const { getMetrics } = data;
       dispatch({ type: actions.METRICS_SUCCESS, getMetrics });
-  //     dispatch(receiveMetrics)
-  //   },
-  //   [dispatch, data, error]
-  // );
-  if (fetching) {
-    return <LinearProgress />;
-  }
-})
-
-
-  console.log('batter up')
+    },
+    [dispatch, data, error]
+  );
 
   return(
     <Card className={classes.card}>
       <CardHeader title="Metrics" />
-      <CardContent>
-      <ul style={{listStyleType: 'none'}}>
 
-      </ul>
-      </CardContent>
+      { fetching ? <LinearProgress /> :
+        <CardContent>"done"
+        </CardContent>}
+
     </Card>)
 }
-//
-// {items.map((metric, index) => (
-//   <MetricSwitch key={index} name={metric} onClick={() => onSwitch(index)}/>
-// ))}
