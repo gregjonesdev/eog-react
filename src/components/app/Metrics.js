@@ -43,6 +43,7 @@ const Metrics = () => {
     getMetrics
   );
 
+
   const useStyles = makeStyles({
     card: {
       margin: "5% 1% 5% 1%"
@@ -65,7 +66,6 @@ const Metrics = () => {
 
       const { getMetrics } = data;
 
-      console.log(getMetrics)
       dispatch({ type: actions.METRICS_SUCCESS, getMetrics });
     },
     [dispatch, data, error]
@@ -78,7 +78,11 @@ const Metrics = () => {
       { fetching ?
         <div><h4>Loading Metrics...</h4>
         <LinearProgress /></div> :
-        "done"
+        <ul style={{listStyleType: 'none'}}>
+          {data.getMetrics.map((metric, index) => (
+            <MetricSwitch key={index} name={metric} />
+          ))}
+        </ul>
         }
         </CardContent>
     </Card>)
