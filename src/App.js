@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/app/Header";
 import Wrapper from "./components/app/Wrapper";
 import Chart from './components/app/Chart';
-import Metrics from './containers/Metrics';
+import MetricsList from './components/app/Metrics';
 import Grid from '@material-ui/core/Grid';
 
 
@@ -43,13 +43,12 @@ const App = props => (
           alignItems="baseline"
         >
           <Grid item xs={12} md={2}>
-            <Metrics />
+            <MetricsList />
           </Grid>
           <Grid item xs={12} md={10}>
             <Chart />
           </Grid>
         </Grid>
-
         <ToastContainer />
       </Wrapper>
     </Provider>

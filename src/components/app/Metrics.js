@@ -16,9 +16,7 @@ const query = `
   }
 `;
 
-  // const getMetrics = state => {
-  //   return state.metrics;
-  // }
+
 
 export default () => {
   return (
@@ -29,11 +27,9 @@ export default () => {
 };
 
 
-const Metrics = ({ metrics, requestMetrics, onSwitch }) => {
-
-  console.log(metrics)
+const Metrics = () => {
+  console.log('Metrics Component')
   const dispatch = useDispatch();
-
   const [result] = useQuery({query});
 
   const useStyles = makeStyles({
@@ -46,29 +42,28 @@ const Metrics = ({ metrics, requestMetrics, onSwitch }) => {
 
   const { fetching, data, error } = result;
 
-
   useEffect(
     () => {
+      dispatch({ type: actions.METRICS_REQUEST })
       if (error) {
         dispatch({ type: actions.METRICS_FAILURE, error: error.message });
         return;
       }
       if (!data) return;
+
+
       const { getMetrics } = data;
-      const objectMetrics = {}
-      data.getMetrics.map(datum => (
-        objectMetrics[datum] = {'isActive': false}
+      dispatch({ type: actions.METRICS_SUCCESS, getMetrics });
+  //     dispatch(receiveMetrics)
+  //   },
+  //   [dispatch, data, error]
+  // );
+  if (fetching) {
+    return <LinearProgress />;
+  }
+})
 
-      ))
-      dispatch({ type: actions.METRICS_SUCCESS, objectMetrics });
-    },
-    [dispatch, data, error]
-  );
-  if (fetching) return <LinearProgress />;
 
-  const items = data.getMetrics
-
-  console.log(metrics) //UNDEFINED
   console.log('batter up')
 
   return(
@@ -76,10 +71,12 @@ const Metrics = ({ metrics, requestMetrics, onSwitch }) => {
       <CardHeader title="Metrics" />
       <CardContent>
       <ul style={{listStyleType: 'none'}}>
-        {items.map((metric, index) => (
-          <MetricSwitch key={index} name={metric} onClick={() => onSwitch(index)}/>
-        ))}
+
       </ul>
       </CardContent>
     </Card>)
 }
+//
+// {items.map((metric, index) => (
+//   <MetricSwitch key={index} name={metric} onClick={() => onSwitch(index)}/>
+// ))}
