@@ -64,6 +64,8 @@ const Metrics = () => {
 
 
       const { getMetrics } = data;
+
+      console.log(getMetrics)
       dispatch({ type: actions.METRICS_SUCCESS, getMetrics });
     },
     [dispatch, data, error]
@@ -72,10 +74,12 @@ const Metrics = () => {
   return(
     <Card className={classes.card}>
       <CardHeader title="Metrics" />
-
-      { fetching ? <LinearProgress /> :
-        <CardContent>"done"
-        </CardContent>}
-
+        <CardContent>
+      { fetching ?
+        <div><h4>Loading Metrics...</h4>
+        <LinearProgress /></div> :
+        "done"
+        }
+        </CardContent>
     </Card>)
 }
