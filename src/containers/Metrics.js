@@ -1,21 +1,24 @@
 import { connect } from 'react-redux';
 import Metrics from '../components/app/Metrics';
+import { switchMetric, requestMetrics, receiveMetrics } from '../store/actions/metrics';
+
 
 const mapStateToProps = state => {
+  console.log('hi')
   return {
-    metrics: getMetrics(state.metrics)
+    metrics: state.metrics
   }
 }
 
 const mapDispatchToProps = dispatch => {
+
   return {
-    onSwitch: metric => [
-      return {
-        onSwitch: metric => {
-          dispatch(toggleMetric(metric))
-        }
-      }
-    ]
+    requestMetrics: () => {
+      dispatch(requestMetrics())
+    },
+    onSwitch: metric => {
+      dispatch(switchMetric(metric))
+    }
   }
 }
 
@@ -24,4 +27,4 @@ const MetricsList = connect(
   mapDispatchToProps
 )(Metrics)
 
-export const MetricsList
+export default MetricsList

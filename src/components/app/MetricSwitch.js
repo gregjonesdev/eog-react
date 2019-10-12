@@ -9,7 +9,7 @@ function handleChange(a) {
 const MetricSwitch = ({ name }) => (
   <li>
     <Switch
-      checked
+      
       onChange={handleChange({name})}
       value={name}
       color="primary"

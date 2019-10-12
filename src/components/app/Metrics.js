@@ -29,7 +29,9 @@ export default () => {
 };
 
 
-const Metrics = ({ metrics, onSwitch }) => {
+const Metrics = ({ metrics, requestMetrics, onSwitch }) => {
+
+  console.log(metrics)
   const dispatch = useDispatch();
 
   const [result] = useQuery({query});
@@ -65,6 +67,9 @@ const Metrics = ({ metrics, onSwitch }) => {
   if (fetching) return <LinearProgress />;
 
   const items = data.getMetrics
+
+  console.log(metrics) //UNDEFINED
+  console.log('batter up')
 
   return(
     <Card className={classes.card}>
