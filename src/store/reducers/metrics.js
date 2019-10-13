@@ -1,4 +1,11 @@
-// import * as actions from "../actions/metrics";
+import {
+  METRICS_REQUEST,
+  METRICS_FAILURE,
+  METRICS_SUCCESS,
+  SWITCH_METRIC,
+  LAST_MEASUREMENT_RECEIVED,
+} from  "../actions/metrics";
+
 
 // const metricsSuccess = (state, action) => {
 //   const { getMetrics } = action;
@@ -35,12 +42,12 @@ const metrics = (state = metricsInitialState, action) => {
   console.log(action.type)
 
   switch (action.type) {
-    case 'METRICS_REQUEST':
+    case METRICS_REQUEST:
       console.log('metrics request time')
       return Object.assign({}, state, {
         isFetching: true
       })
-    case 'METRICS_SUCCESS':
+    case METRICS_SUCCESS:
       console.log('metrics success time')
       const results = []
       action.getMetrics.map((metric) => {
@@ -55,13 +62,14 @@ const metrics = (state = metricsInitialState, action) => {
         results: results,
         isFetching: false
       })
-    case 'SWITCH_METRIC':
+    case SWITCH_METRIC:
       const updatedResults = state.results.map(metric =>
         metric.name === action.name ? { ...metric, isActive: !metric.isActive } : metric
       )
 
       return Object.assign({}, state, state.results = updatedResults)
-
+    case LAST_MEASUREMENT_RECEIVED:
+      console.log('reducer last msmt recd')
     default:
       return state
   }

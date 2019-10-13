@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Provider, client, useQuery } from "../../core/client";
 import LinearProgress from "@material-ui/core/LinearProgress";
-
+import { LAST_MEASUREMENT_RECEIVED } from "../../store/actions/metrics"
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from '@material-ui/core/Grid';
@@ -66,7 +66,7 @@ const Box = ({metric}) => {
       if (!data) return;
       const { getLastKnownMeasurement } = data;
       console.log(getLastKnownMeasurement)
-      // dispatch({ type: actions.WEATHER_DATA_RECEIVED, getWeatherForLocation });
+      dispatch({ type: LAST_MEASUREMENT_RECEIVED, getLastKnownMeasurement });
     },
     [dispatch, data, error]
   );
