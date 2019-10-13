@@ -17,12 +17,12 @@ const query = `
 `;
 
 
-const getMetrics = state => {
-  const { results } = state.metrics;
-  return {
-    results
-  };
-};
+// const getMetrics = state => {
+//   const { results } = state.metrics;
+//   return {
+//     results
+//   };
+// };
 
 export default () => {
   return (
@@ -37,11 +37,6 @@ const Metrics = () => {
   console.log('Metrics Component')
   const dispatch = useDispatch();
   const [result] = useQuery({query});
-
-
-  const { metrics } = useSelector(
-    getMetrics
-  );
 
 
   const useStyles = makeStyles({
@@ -71,6 +66,8 @@ const Metrics = () => {
     [dispatch, data, error]
   );
 
+  const why = () => { console.log('why')}
+
   return(
     <Card className={classes.card}>
       <CardHeader title="Metrics" />
@@ -80,7 +77,7 @@ const Metrics = () => {
         <LinearProgress /></div> :
         <ul style={{listStyleType: 'none'}}>
           {data.getMetrics.map((metric, index) => (
-            <MetricSwitch key={index} name={metric} />
+            <MetricSwitch key={index} name={metric} onChange={why}/>
           ))}
         </ul>
         }

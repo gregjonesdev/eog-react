@@ -31,6 +31,8 @@ const metricsInitialState = {
 
 
 const metrics = (state = metricsInitialState, action) => {
+  console.log('metrics reducer')
+  console.log(action.type)
   switch (action.type) {
     case 'METRICS_REQUEST':
       console.log('metrics request time')
@@ -45,6 +47,8 @@ const metrics = (state = metricsInitialState, action) => {
           name: metric,
           isActive: false
         })
+
+        return results;
       })
       return Object.assign({}, state, {
         results: results,

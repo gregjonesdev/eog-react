@@ -1,17 +1,29 @@
-import React from 'react';
+import React from "react";
+import { useDispatch } from "react-redux";
 import PropTypes from 'prop-types';
 import Switch from '@material-ui/core/Switch';
+import { SWITCH_METRIC } from "../../store/actions/metrics";
 
-const MetricSwitch = ( {name} ) => (
-  <li>
-    <Switch
-      value={name}
-      color="primary"
-      inputProps={{ 'aria-label': 'primary checkbox' }}
-    />
-    { name }
-  </li>
-)
+
+const who = (e) => { console.log(e)}
+
+const MetricSwitch = ( {name}, {onChange} ) => {
+
+  const dispatch = useDispatch();
+
+
+  return (
+    <li>
+      <Switch
+        value={name}
+        onChange={() => {dispatch({ type: SWITCH_METRIC, name })}}
+        color="primary"
+        inputProps={{ 'aria-label': 'primary checkbox' }}
+      />
+      { name }
+    </li>
+  )
+}
 //
 MetricSwitch.propTypes = {
   // onChange: PropTypes.func.isRequired,
