@@ -56,10 +56,6 @@ const metrics = (state = metricsInitialState, action) => {
         isFetching: false
       })
     case 'SWITCH_METRIC':
-      console.log('ready to switch')
-      console.log(action)
-      console.log(state)
-      console.log(state.results)
       const updatedResults = state.results.map(metric =>
         metric.name === action.name ? { ...metric, isActive: !metric.isActive } : metric
       )

@@ -17,13 +17,6 @@ const query = `
 `;
 
 
-// const getMetrics = state => {
-//   const { results } = state.metrics;
-//   return {
-//     results
-//   };
-// };
-
 export default () => {
   return (
     <Provider value={client}>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Card from "@material-ui/core/Card";
 import CardHeader from "./CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -29,10 +30,16 @@ const useStyles = makeStyles({
 });
 
 export default () => {
+
+  console.log('metrics to chart: ')
+  const metrics = useSelector(state => state.metrics);
+  metrics.results.map((metric) => {
+    console.log(metric.name)
+  })
+
   const classes = useStyles();
   return (
     <Card className={classes.card}>
-      <CardHeader title="Data" />
       <CardContent>
         {renderLineChart}
       </CardContent>
