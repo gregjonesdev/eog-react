@@ -3,11 +3,10 @@ import { useSelector } from "react-redux";
 
 
 
-export default (metric) => {
-  const thing = { metric }
+export default ({metric}) => {
   return (
     <div style={{border:"1px solid blue"}}>
-      greg
+      {metric}
     </div>
   );
 };
