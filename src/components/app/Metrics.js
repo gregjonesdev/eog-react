@@ -35,6 +35,9 @@ const Metrics = () => {
   const useStyles = makeStyles({
     card: {
       margin: "5% 1% 5% 1%"
+    },
+    header: {
+      height: "18px",
     }
   });
 
@@ -61,17 +64,15 @@ const Metrics = () => {
 
   return(
     <Card className={classes.card}>
-      <CardHeader title="Metrics" />
-        <CardContent>
+      <CardHeader title="Metrics" className={classes.header} />
       { fetching ?
         <div><h4>Loading Metrics...</h4>
         <LinearProgress /></div> :
         <ul style={{listStyleType: 'none'}}>
-          {data.getMetrics.map((metric, index) => (
+          { data.getMetrics.map((metric, index) => (
             <MetricSwitch key={index} name={metric} />
-          ))}
+          )) }
         </ul>
         }
-        </CardContent>
     </Card>)
 }

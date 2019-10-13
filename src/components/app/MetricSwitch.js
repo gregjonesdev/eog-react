@@ -8,7 +8,7 @@ const MetricSwitch = ( {name} ) => {
   const dispatch = useDispatch();
 
   return (
-    <li>
+    <li style={{margin: 0}}>
       <Switch
         value={name}
         onChange={() => {dispatch({ type: SWITCH_METRIC, name })}}
