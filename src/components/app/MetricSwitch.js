@@ -4,13 +4,8 @@ import PropTypes from 'prop-types';
 import Switch from '@material-ui/core/Switch';
 import { SWITCH_METRIC } from "../../store/actions/metrics";
 
-
-const who = (e) => { console.log(e)}
-
-const MetricSwitch = ( {name}, {onChange} ) => {
-
+const MetricSwitch = ( {name} ) => {
   const dispatch = useDispatch();
-
 
   return (
     <li>

@@ -33,6 +33,7 @@ const metricsInitialState = {
 const metrics = (state = metricsInitialState, action) => {
   console.log('metrics reducer')
   console.log(action.type)
+
   switch (action.type) {
     case 'METRICS_REQUEST':
       console.log('metrics request time')
@@ -54,6 +55,17 @@ const metrics = (state = metricsInitialState, action) => {
         results: results,
         isFetching: false
       })
+    case 'SWITCH_METRIC':
+      console.log('ready to switch')
+      console.log(action)
+      console.log(state)
+      console.log(state.results)
+      const updatedResults = state.results.map(metric =>
+        metric.name === action.name ? { ...metric, isActive: !metric.isActive } : metric
+      )
+
+      return Object.assign({}, state, state.results = updatedResults)
+
     default:
       return state
   }

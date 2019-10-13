@@ -66,8 +66,6 @@ const Metrics = () => {
     [dispatch, data, error]
   );
 
-  const why = () => { console.log('why')}
-
   return(
     <Card className={classes.card}>
       <CardHeader title="Metrics" />
@@ -77,7 +75,7 @@ const Metrics = () => {
         <LinearProgress /></div> :
         <ul style={{listStyleType: 'none'}}>
           {data.getMetrics.map((metric, index) => (
-            <MetricSwitch key={index} name={metric} onChange={why}/>
+            <MetricSwitch key={index} name={metric} />
           ))}
         </ul>
         }
