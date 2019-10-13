@@ -78,7 +78,9 @@ const Box = ({metric}) => {
       <Grid item>
         <Card>
           <CardContent>
-            {metric}
+            <h3>{metric}</h3>
+            <hr/>
+            <h1>52</h1>(psi)
           </CardContent>
         </Card>
       </Grid>
