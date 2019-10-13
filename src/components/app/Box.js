@@ -78,7 +78,7 @@ const Box = ({metric}) => {
       <Grid item>
         <Card>
           <CardContent>
-            <h3>{metric}</h3>
+            <h3 style={{ padding: "0 10px"}}>{metric}</h3>
             <hr/>
             <h1>52</h1>(psi)
           </CardContent>

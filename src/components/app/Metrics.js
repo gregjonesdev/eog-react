@@ -34,11 +34,8 @@ const Metrics = () => {
 
   const useStyles = makeStyles({
     card: {
-      margin: "5% 1% 5% 1%"
+      margin: "0% 1% 5% 1%"
     },
-    header: {
-      height: "18px",
-    }
   });
 
   const classes = useStyles()
@@ -64,7 +61,10 @@ const Metrics = () => {
 
   return(
     <Card className={classes.card}>
-      <CardHeader title="Metrics" className={classes.header} />
+      <CardContent>
+
+      <h3 style={{ padding: "0 10px"}}>Metrics</h3>
+      <hr/>
       { fetching ?
         <div><h4>Loading Metrics...</h4>
         <LinearProgress /></div> :
@@ -74,5 +74,7 @@ const Metrics = () => {
           )) }
         </ul>
         }
+        </CardContent>
+
     </Card>)
 }

@@ -41,9 +41,12 @@ const App = props => (
     <Provider store={store}>
       <Wrapper>
         <Header />
-        <div style={{padding: "20px"}}>
-        <Grid container spacing={2} direction="row"
-          alignItems="baseline"
+        <Grid
+          container
+          spacing={2}
+          direction="row"
+          alignItems="flex-start"
+          style={{ padding: "20px"}}
         >
           <Grid item xs={12} md={2}>
             <Metrics />
@@ -55,7 +58,6 @@ const App = props => (
             <Chart />
           </Grid>
         </Grid>
-        </div>
         <ToastContainer />
       </Wrapper>
     </Provider>
