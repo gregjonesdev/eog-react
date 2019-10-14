@@ -23,15 +23,14 @@ const buildQuery = (metricName) => {
   `;
 }
 
-const getMeasurement = state => {
+const getMeasurements = state => {
   const results = state.metrics.results;
-  if (results.length > 0) {
-    results.map(result => {
-      if (result.name === "tubingPressure") {
-        return result.measurement
-      }
-    })
-  }
+  const measurements = []
+  results.map(result => {
+      measurements.push(result.measurement)
+    }
+  )
+  return measurements
 };
 
 export default ({metric}) => {
@@ -48,9 +47,20 @@ const Box = ({metric}) => {
 
   const dispatch = useDispatch();
 
-  useSelector(
-    getMeasurement
+  const measurements = useSelector(
+    getMeasurements
   );
+
+  console.log('pizza')
+  console.log(measurements)
+  let latestMeasurement
+  measurements.map(item => {
+    if (Boolean(item) && item.metric === metric) {
+      latestMeasurement = item
+    }
+  })
+
+  console.log(latestMeasurement)
 
 
 
@@ -61,7 +71,7 @@ const Box = ({metric}) => {
   });
   const { fetching, data, error } = result;
 
-  console.log(result)
+
   useEffect(
     () => {
       if (error) {
@@ -82,9 +92,9 @@ const Box = ({metric}) => {
       <Grid item>
         <Card>
           <CardContent>
-            <h3 style={{ padding: "0 10px"}}>{metric}</h3>
+            <h3 style={{ padding: "0 10px"}}>{metric.name}</h3>
             <hr/>
-            <h1>52</h1>(psi)
+            { latestMeasurement ? <div><h1>{latestMeasurement.value}</h1>{latestMeasurement.unit}</div> : <div>"No Data Received"</div>}
           </CardContent>
         </Card>
       </Grid>
