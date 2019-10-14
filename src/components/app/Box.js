@@ -24,13 +24,14 @@ const buildQuery = (metricName) => {
 }
 
 const getMeasurement = state => {
-  const { metric, at, value, unit } = state.weather;
-  return {
-    metric,
-    at,
-    value,
-    unit
-  };
+  const results = state.metrics.results;
+  if (results.length > 0) {
+    results.map(result => {
+      if (result.name === "tubingPressure") {
+        return result.measurement
+      }
+    })
+  }
 };
 
 export default ({metric}) => {
@@ -42,20 +43,25 @@ export default ({metric}) => {
 };
 
 const Box = ({metric}) => {
+  console.log("Box componenet.....")
+  console.log(metric) //tubingPressure
 
   const dispatch = useDispatch();
-  const { metric2, at2, unit2, value2 } = useSelector(
+
+  useSelector(
     getMeasurement
   );
 
+
+
   const query = buildQuery(metric)
-
-  const metricName = "tubingPressure"
-
+  //
   const [result] = useQuery({
     query
   });
   const { fetching, data, error } = result;
+
+  console.log(result)
   useEffect(
     () => {
       if (error) {
@@ -64,8 +70,6 @@ const Box = ({metric}) => {
       }
       if (!data) return;
       const { getLastKnownMeasurement } = data;
-      console.log('8888888888')
-      console.log(getLastKnownMeasurement)
       dispatch({ type: LAST_MEASUREMENT_RECEIVED, getLastKnownMeasurement });
     },
     [dispatch, data, error]

@@ -78,6 +78,10 @@ const metrics = (state = metricsInitialState, action) => {
         metric.name === measurement.metric ? {...metric, measurement } : metric)
       console.log('999')
       console.log(updatedMeasurement)
+      // const measuredResults = state.results.map(metric =>
+      //   metric.name === action.name ? { ...metric, measurement: updatedMeasurement } : metric
+      // )
+      return Object.assign({}, state, {results: updatedMeasurement})
     default:
       return state
   }
