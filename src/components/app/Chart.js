@@ -29,22 +29,11 @@ const data = [
     name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
   },
 ];
-//
-const renderLineChart = (
-  // <LineChart width={800} height={300} data={data} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-  //   <Line type="monotone" dataKey="uv" stroke="#347B98" />
-  //   <Line type="monotone" dataKey="pv" stroke="#66B032" />
-  //   <Line type="monotone" dataKey="amt" stroke="#B2D732" />
-  //   <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-  //   <XAxis dataKey="name" />
-  //   <YAxis yAxisId="1" tickCount={10} tickLine={false} axisLine={false} minTickGap={600} />
-  //   <YAxis yAxisId="2" orientation='right' tickCount={10} tickLine={false} axisLine={false} minTickGap={600}/>
-  //   <Tooltip />
-  // </LineChart>
 
+const renderLineChart = (
 
   <LineChart
-    width={800}
+    width={1200}
     height={300}
     data={data}
     margin={{
@@ -63,15 +52,15 @@ const renderLineChart = (
     <Line yAxisId="3" type="monotone" dataKey="amt" stroke="#B2D732" />
   </LineChart>
 );
-//
+
 export default () => {
-//
-//   console.log('metrics to chart: ')
-//   const metrics = useSelector(state => state.metrics);
-//   metrics.results.map((metric) => {
-//     console.log(metric.name)
-//   })
-//
+
+  console.log('metrics to chart: ')
+  const metrics = useSelector(state => state.metrics);
+  metrics.results.map((metric) => {
+    console.log(metric.name)
+  })
+
   return (
     <Card>
       <CardContent>
@@ -80,17 +69,3 @@ export default () => {
     </Card>
   );
 };
-
-
-
-
-//
-// export default class Example extends PureComponent {
-//   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/zjb47e83/';
-//
-//   render() {
-//     return (
-//
-//     );
-//   }
-// }
