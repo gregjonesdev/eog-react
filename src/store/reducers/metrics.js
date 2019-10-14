@@ -67,6 +67,8 @@ const metrics = (state = metricsInitialState, action) => {
       const updatedResults = state.results.map(metric =>
         metric.name === action.name ? { ...metric, isActive: !metric.isActive } : metric
       )
+      console.log('returning...')
+      console.log(Object.assign({}, test, {results: updatedResults}))
       return Object.assign({}, test, {results: updatedResults})
     case LAST_MEASUREMENT_RECEIVED:
       console.log('reducer last msmt recd')
