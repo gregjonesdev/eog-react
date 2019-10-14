@@ -42,17 +42,12 @@ export default ({metric}) => {
 };
 
 const Box = ({metric}) => {
-  console.log("Box componenet.....")
-  console.log(metric) //tubingPressure
-
   const dispatch = useDispatch();
 
   const measurements = useSelector(
     getMeasurements
   );
 
-  console.log('pizza')
-  console.log(measurements)
   let latestMeasurement
   measurements.map(item => {
     if (Boolean(item) && item.metric === metric) {
@@ -60,12 +55,7 @@ const Box = ({metric}) => {
     }
   })
 
-  console.log(latestMeasurement)
-
-
-
   const query = buildQuery(metric)
-  //
   const [result] = useQuery({
     query
   });
@@ -92,9 +82,17 @@ const Box = ({metric}) => {
       <Grid item>
         <Card>
           <CardContent>
-            <h3 style={{ padding: "0 10px"}}>{metric.name}</h3>
+            <h3 style={{ padding: "0 10px"}}>{metric}</h3>
             <hr/>
-            { latestMeasurement ? <div><h1>{latestMeasurement.value}</h1>{latestMeasurement.unit}</div> : <div>"No Data Received"</div>}
+            { latestMeasurement ?
+              <div>
+                <h1>{latestMeasurement.value}</h1>
+                <span>{latestMeasurement.unit}</span>
+              </div> :
+              <div>
+                <h2>"No Data Received"</h2>
+              </div>
+            }
           </CardContent>
         </Card>
       </Grid>
