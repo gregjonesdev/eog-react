@@ -44,12 +44,10 @@ const metrics = (state = metricsInitialState, action) => {
 
   switch (action.type) {
     case METRICS_REQUEST:
-      console.log('metrics request time')
       return Object.assign({}, state, {
         isFetching: true
       })
     case METRICS_SUCCESS:
-      console.log('metrics success time')
       const results = []
       action.getMetrics.map((metric) => {
         results.push({
@@ -66,23 +64,10 @@ const metrics = (state = metricsInitialState, action) => {
     case SWITCH_METRIC:
       console.log('SWITCH_METRIC')
       console.log(state)
-      // const updatedResults = state.results.map(metric =>
-      //   metric.name === action.name ? { ...metric, isActive: !metric.isActive } : metric
-      // )
-      // console.log('&&&')
-      // console.log(updatedResults)
-      // return Object.assign({}, ...state, state.results = updatedResults)
-
-
-
-      const updatedResults = state.results.map( metric =>
+      const updatedResults = state.results.map(metric =>
         metric.name === action.name ? { ...metric, isActive: !metric.isActive } : metric
       )
-      console.log('$%$%$%')
-      console.log(updatedResults)
-
-      return Object.assign({}, state, state.results = updatedResults)
-
+      return Object.assign({}, test, {results: updatedResults})
     case LAST_MEASUREMENT_RECEIVED:
       console.log('reducer last msmt recd')
     default:
