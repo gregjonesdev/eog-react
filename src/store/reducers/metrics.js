@@ -68,10 +68,16 @@ const metrics = (state = metricsInitialState, action) => {
         metric.name === action.name ? { ...metric, isActive: !metric.isActive } : metric
       )
       console.log('returning...')
-      console.log(Object.assign({}, test, {results: updatedResults}))
-      return Object.assign({}, test, {results: updatedResults})
+      console.log(Object.assign({}, state, {results: updatedResults}))
+      return Object.assign({}, state, {results: updatedResults})
     case LAST_MEASUREMENT_RECEIVED:
       console.log('reducer last msmt recd')
+      console.log(action.getLastKnownMeasurement)
+      const measurement = action.getLastKnownMeasurement;
+      const updatedMeasurement = state.results.map(metric =>
+        metric.name === measurement.metric ? {...metric, measurement } : metric)
+      console.log('999')
+      console.log(updatedMeasurement)
     default:
       return state
   }

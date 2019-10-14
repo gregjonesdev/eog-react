@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Provider, client, useQuery } from "../../core/client";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { LAST_MEASUREMENT_RECEIVED } from "../../store/actions/metrics"
+import { LAST_MEASUREMENT_RECEIVED, API_ERROR } from "../../store/actions/metrics"
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from '@material-ui/core/Grid';
@@ -23,13 +23,13 @@ const buildQuery = (metricName) => {
   `;
 }
 
-
-const getWeather = state => {
-  const { temperatureinFahrenheit, description, locationName } = state.weather;
+const getMeasurement = state => {
+  const { metric, at, value, unit } = state.weather;
   return {
-    temperatureinFahrenheit,
-    description,
-    locationName
+    metric,
+    at,
+    value,
+    unit
   };
 };
 
@@ -44,9 +44,9 @@ export default ({metric}) => {
 const Box = ({metric}) => {
 
   const dispatch = useDispatch();
-  // const { temperatureinFahrenheit, description, locationName } = useSelector(
-  //   getWeather
-  // );
+  const { metric2, at2, unit2, value2 } = useSelector(
+    getMeasurement
+  );
 
   const query = buildQuery(metric)
 
@@ -59,12 +59,12 @@ const Box = ({metric}) => {
   useEffect(
     () => {
       if (error) {
-        // dispatch({ type: actions.API_ERROR, error: error.message });
-        console.log('errrrrror')
+        dispatch({ type: API_ERROR, error: error.message });
         return;
       }
       if (!data) return;
       const { getLastKnownMeasurement } = data;
+      console.log('8888888888')
       console.log(getLastKnownMeasurement)
       dispatch({ type: LAST_MEASUREMENT_RECEIVED, getLastKnownMeasurement });
     },
