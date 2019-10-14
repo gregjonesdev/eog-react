@@ -5,7 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
-//
+
 const data = [
   {
     name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
@@ -30,6 +30,21 @@ const data = [
   },
 ];
 
+// const buildQuery = (metricName) => {
+//   return `
+//   query {
+//       getLastKnownMeasurement(
+//         metricName: "${ metricName }"
+//       ) {
+//       metric
+//       at
+//       value
+//       unit
+//     }
+//     }
+//   `;
+// }
+
 const renderLineChart = (
 
   <LineChart
@@ -47,7 +62,7 @@ const renderLineChart = (
     <YAxis yAxisId="3" />
     <Tooltip />
     <Legend />
-    <Line yAxisId="1" type="monotone" dataKey="pv" stroke="#347B98" activeDot={{ r: 8 }} />
+    <Line yAxisId="1" type="monotone" dataKey="pv" stroke="#347B98" />
     <Line yAxisId="2" type="monotone" dataKey="uv" stroke="#66B032" />
     <Line yAxisId="3" type="monotone" dataKey="amt" stroke="#B2D732" />
   </LineChart>
