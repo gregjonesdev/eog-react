@@ -26,9 +26,9 @@ const buildQuery = (metricName) => {
 const getMeasurements = state => {
   const results = state.metrics.results;
   const measurements = []
-  results.map(result => {
+  results.map(result => (
       measurements.push(result.measurement)
-    }
+    )
   )
   return measurements
 };
@@ -53,7 +53,9 @@ const Box = ({metric}) => {
     if (Boolean(item) && item.metric === metric) {
       latestMeasurement = item
     }
+    return item
   })
+
 
   const query = buildQuery(metric)
   const [result] = useQuery({

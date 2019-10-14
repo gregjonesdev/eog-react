@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Card from "@material-ui/core/Card";
-import CardHeader from "./CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 

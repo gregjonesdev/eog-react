@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions/metrics";
 import { Provider, client, useQuery } from "../../core/client";
 import Card from "@material-ui/core/Card";
-import CardHeader from "./CardHeader";
 import MetricSwitch from "./MetricSwitch";
 import CardContent from "@material-ui/core/CardContent";
 import LinearProgress from "@material-ui/core/LinearProgress";
