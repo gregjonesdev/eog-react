@@ -66,13 +66,13 @@ const Metrics = () => {
       <h3 style={{ padding: "0 10px"}}>Metrics</h3>
       <hr/>
       { fetching ?
-        <div><h4>Loading Metrics...</h4>
-        <LinearProgress /></div> :
+        <div style={{ textAlign: "center"}}><h4>Loading Metrics...</h4>
+        <LinearProgress /></div> : data ?
         <ul style={{listStyleType: 'none'}}>
           { data.getMetrics.map((metric, index) => (
             <MetricSwitch key={index} name={metric} />
           )) }
-        </ul>
+        </ul> : <div style={{ textAlign: "center"}}><h4>No Data Currently Available</h4></div>
         }
         </CardContent>
 

@@ -40,6 +40,7 @@ const metricsInitialState = {
 const metrics = (state = metricsInitialState, action) => {
   console.log('metrics reducer')
   console.log(action.type)
+  console.log(state)
 
   switch (action.type) {
     case METRICS_REQUEST:
@@ -63,11 +64,25 @@ const metrics = (state = metricsInitialState, action) => {
         isFetching: false
       })
     case SWITCH_METRIC:
-      const updatedResults = state.results.map(metric =>
+      console.log('SWITCH_METRIC')
+      console.log(state)
+      // const updatedResults = state.results.map(metric =>
+      //   metric.name === action.name ? { ...metric, isActive: !metric.isActive } : metric
+      // )
+      // console.log('&&&')
+      // console.log(updatedResults)
+      // return Object.assign({}, ...state, state.results = updatedResults)
+
+
+
+      const updatedResults = state.results.map( metric =>
         metric.name === action.name ? { ...metric, isActive: !metric.isActive } : metric
       )
+      console.log('$%$%$%')
+      console.log(updatedResults)
 
       return Object.assign({}, state, state.results = updatedResults)
+
     case LAST_MEASUREMENT_RECEIVED:
       console.log('reducer last msmt recd')
     default:
