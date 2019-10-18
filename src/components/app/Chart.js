@@ -1,10 +1,51 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import { LAST_MEASUREMENT_RECEIVED, API_ERROR } from "../../store/actions/metrics"
+import { Provider, client, useQuery, useSubscription } from "../../core/client";
+import { Subscription } from "urql";
+import {
+  cacheExchange,
+  createClient,
+  debugExchange,
+  fetchExchange,
+} from 'urql';
+import { Client, defaultExchanges, subscriptionExchange } from 'urql';
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+// import { ApolloClient } from 'apollo-client;'
+import { WebSocketLink } from 'apollo-link-ws';
+
+const wsLink = new WebSocketLink({
+  uri: `ws://localhost:4001/graphql`,
+  options: {
+    reconnect: true
+  }
+});
+
+//
+// const networkInterface = createNetworkInterface({ uri:
+// 'http://localhost:4000/graphql' });
+// networkInterface.use([{
+//   applyMiddleware(req, next) {
+//     setTimeout(next, 500);
+//   },
+// }]);
+// const wsClient = new SubscriptionClient(`ws://localhost:4000/subscriptions`, {
+//   reconnect: true,
+// });
+// const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+//   networkInterface,
+//   wsClient,
+// );
+//
+// const client = new ApolloClient({
+//   networkInterface: networkInterfaceWithSubscriptions
+// });
+
 
 const data = [
   {
@@ -30,23 +71,22 @@ const data = [
   },
 ];
 
-// const buildQuery = (metricName) => {
-//   return `
-//   query {
-//       getLastKnownMeasurement(
-//         metricName: "${ metricName }"
-//       ) {
-//       metric
-//       at
-//       value
-//       unit
-//     }
-//     }
-//   `;
-// }
+const subscriptionQuery =  `
+  subscription{
+      newMeasurement{
+        metric,
+        value,
+        at,
+        unit
+      }
+    }
+  `;
+
+
+
+
 
 const renderLineChart = (
-
   <LineChart
     width={1200}
     height={300}
@@ -68,7 +108,11 @@ const renderLineChart = (
   </LineChart>
 );
 
+
 export default () => {
+  console.log('default')
+
+
 
   console.log('metrics to chart: ')
   const metrics = useSelector(state => state.metrics);
@@ -76,9 +120,27 @@ export default () => {
     console.log(metric.name)
   })
 
+  function HookVersion() {
+
+    const [result] = useQuery({
+      query: subscriptionQuery,
+    })
+    const { fetching, data } = result
+
+    // return fetching ? (
+    //   <div className="loader">Loading..</div>
+    // ) : (
+    //   <div className="json">{JSON.stringify(data, null, 2)}</div>
+    // )
+    return ( <>{data}</>)
+  }
+
+
+
   return (
     <Card>
       <CardContent>
+      <HookVersion />
         {renderLineChart}
       </CardContent>
     </Card>

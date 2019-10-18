@@ -23,6 +23,18 @@ const buildQuery = (metricName) => {
   `;
 }
 
+const subscriptionQuery =  `
+  subscription{
+      newMeasurement{
+        metric,
+        value,
+        at,
+        unit
+      }
+    }
+  `;
+
+
 const getMeasurements = state => {
   const results = state.metrics.results;
   const measurements = []
