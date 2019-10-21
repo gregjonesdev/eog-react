@@ -2,17 +2,21 @@ import React from "react";
 import createStore from "./store";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import {
+    MuiThemeProvider,
+    createMuiTheme
+} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/app/Header";
 import Wrapper from "./components/app/Wrapper";
 import Chart from './components/app/Chart';
 import Boxes from './components/app/Boxes';
+import Test from './components/app/Test';
 import Metrics from './components/app/Metrics';
 import Grid from '@material-ui/core/Grid';
 
-
+import gql from 'graphql-tag';
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -55,6 +59,7 @@ const App = props => (
             <Boxes />
           </Grid>
           <Grid item xs={12}>
+          <Test />
             <Chart />
           </Grid>
         </Grid>

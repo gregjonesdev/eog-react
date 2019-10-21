@@ -6,6 +6,20 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const data = [
   {
     name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
@@ -46,7 +60,6 @@ const data = [
 // }
 
 const renderLineChart = (
-
   <LineChart
     width={1200}
     height={300}
@@ -72,9 +85,12 @@ export default () => {
 
   console.log('metrics to chart: ')
   const metrics = useSelector(state => state.metrics);
-  metrics.results.map((metric) => {
-    console.log(metric.name)
-  })
+  console.log(metrics)
+  // metrics.results.map((metric) => {
+  //   console.log(metric.name)
+  // })
+
+  console.log('hey')
 
   return (
     <Card>
