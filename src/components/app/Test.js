@@ -16,7 +16,7 @@ import ReduxLink from 'apollo-link-redux';
 import { onError } from 'apollo-link-error';
 import { getMainDefinition } from 'apollo-utilities';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
-
+import { ssrExchange, Client, defaultExchanges, Subscription, subscriptionExchange, dedupExchange, cacheExchange, fetchExchange } from 'urql';
 const URL = 'react.eogresources.com';
 
 const MEASUREMENT_SUBSCRIPTION = gql`
@@ -30,58 +30,28 @@ const MEASUREMENT_SUBSCRIPTION = gql`
   }
 `;
 
-const httpLink = createHttpLink({ uri: `http://${URL}/graphql` });
-
-// Create WebSocket client
-export const wsClient = new SubscriptionClient(`ws://${URL}/graphql`, {
-  reconnect: true,
-  connectionParams: {
-    // Pass any arguments you want for initialization
-  },
-});
-
-const webSocketLink = new WebSocketLink(wsClient);
-
-const requestLink = ({ queryOrMutationLink, subscriptionLink }) =>
-  ApolloLink.split(
-    ({ query }) => {
-      const { kind, operation } = getMainDefinition(query);
-      return kind === 'OperationDefinition' && operation === 'subscription';
-    },
-    subscriptionLink,
-    queryOrMutationLink,
-  );
-
-const link = ApolloLink.from([
-  ReduxLink,
-  // errorLink,
-  requestLink({
-    queryOrMutationLink: httpLink,
-    subscriptionLink: webSocketLink,
-  }),
-]);
-
-const client = new ApolloClient()
-
-export default () => {
-  return (
-    <ApolloProvider client={client}>
-      <Test />
-    </ApolloProvider>
-  );
-};
-
-const Test = () => {
-
-  const { data, loading, error } = useSubscription(
-    MEASUREMENT_SUBSCRIPTION,
-  );
-
-  console.log(error)
-  return <h4>New comment: {!loading && data}</h4>;
+const newMessages = `
+  subscription MessageSub {
+    newMessages {
+      id
+      from
+      text
+    }
+  }
+`;
 
 
-  return (
-      <div>TEst</div>
-  );
-};
+const buildQuery = (metricName) => {
+  return `
+  query {
+      getLastKnownMeasurement(
+        metricName: "${ metricName }"
+      ) {
+      metric
+      at
+      value
+      unit
+    }
+    }
+  `;
+}
