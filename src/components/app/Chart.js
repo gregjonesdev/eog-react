@@ -1,23 +1,44 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "@material-ui/core/Card";
+import { LAST_MEASUREMENT_RECEIVED, API_ERROR } from "../../store/actions/metrics"
 import CardContent from "@material-ui/core/CardContent";
+import { Provider, client, useQuery } from "../../core/client";
+
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
+import Grid from '@material-ui/core/Grid';
 
 
+const buildQuery = (metricName) => {
+  return `
+  query {
+      getMeasurements(
+        input: {
+          metricName: "${ metricName }",
+          after: 1571679764726
+        }
+      ) {
+      metric
+      at
+      value
+      unit
+    }
+    }
+  `;
+}
 
-
-
-
-
-
-
-
-
-
+const getMeasurements = state => {
+  const results = state.metrics.results;
+  const measurements = []
+  results.map(result => (
+      measurements.push(result.measurement)
+    )
+  )
+  return measurements
+};
 
 
 const data = [
@@ -44,21 +65,6 @@ const data = [
   },
 ];
 
-// const buildQuery = (metricName) => {
-//   return `
-//   query {
-//       getLastKnownMeasurement(
-//         metricName: "${ metricName }"
-//       ) {
-//       metric
-//       at
-//       value
-//       unit
-//     }
-//     }
-//   `;
-// }
-
 const renderLineChart = (
   <LineChart
     width={1200}
@@ -82,21 +88,68 @@ const renderLineChart = (
 );
 
 export default () => {
+  const today = new Date().valueOf();
+  const yesterday = today - 86400000;
+  const dispatch = useDispatch();
+
 
   console.log('metrics to chart: ')
   const metrics = useSelector(state => state.metrics);
   console.log(metrics)
-  // metrics.results.map((metric) => {
-  //   console.log(metric.name)
+  metrics.results.map((metric) => {
+    console.log(metric.name)
+  })
+
+  // const measurements = useSelector(
+  //   getMeasurements
+  // );
+  //
+  // let latestMeasurement
+  // measurements.map(item => {
+  //   if (Boolean(item) && item.metric === metric) {
+  //     latestMeasurement = item
+  //   }
+  //   return item
   // })
 
-  console.log('hey')
+
+  const query = buildQuery("tubingPressure")
+  const [result] = useQuery({
+    query
+  });
+  console.log('%')
+  console.log(result)
+  // const today = new Date().valueOf();
+  // const yesterday = today - 86400000;
+
+  const { fetching, data, error } = result;
+
+
+  useEffect(
+    () => {
+      if (error) {
+        dispatch({ type: API_ERROR, error: error.message });
+        return;
+      }
+      if (!data) return;
+      console.log('hi')
+      console.log(data)
+      // const { getLastKnownMeasurement } = data;
+      // dispatch({ type: LAST_MEASUREMENT_RECEIVED, getLastKnownMeasurement });
+    },
+    [dispatch, data, error]
+  );
+
+  // if (fetching) return <LinearProgress />;
+
 
   return (
-    <Card>
-      <CardContent>
-        {renderLineChart}
-      </CardContent>
-    </Card>
+    <Provider value={client}>
+      <Card>
+        <CardContent>
+          {renderLineChart}
+        </CardContent>
+      </Card>
+    </Provider>
   );
 };

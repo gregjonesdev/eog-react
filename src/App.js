@@ -59,8 +59,7 @@ const App = props => (
             <Boxes />
           </Grid>
           <Grid item xs={12}>
-          <Test />
-            <Chart />
+          <Chart/>
           </Grid>
         </Grid>
         <ToastContainer />
