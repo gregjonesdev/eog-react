@@ -19,36 +19,6 @@ import { getMainDefinition } from 'apollo-utilities';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 // import { ssrExchange, Client, defaultExchanges, Subscription, subscriptionExchange, dedupExchange, cacheExchange, fetchExchange } from 'urql';
 
-
-const URL = 'react.eogresources.com';
-
-const clientNew = new ApolloClient({
-  uri: `https://${URL}/graphql`,
-});
-
-const wsLink = new WebSocketLink({
-  uri: `ws://${URL}/graphql`,
-  options: {
-    reconnect: true
-  }
-});
-
-const httpLink = new HttpLink({
-  uri: `https://${URL}/graphql`
-});
-//
-// const link = split(
-//   ({ query }) => {
-//     const definition = getMainDefinition(query);
-//     return (
-//       definition.kind === 'OperationDefinition' &&
-//       definition.operation === 'subscription'
-//     );
-//   },
-//   wsLink,
-//   httpLink,
-// );
-
 const MEASUREMENT_SUBSCRIPTION = gql`
   subscription {
       newMeasurement {
@@ -74,42 +44,8 @@ const buildQuery = gql`
     }
   `;
 
-const newNums = gql`
-  subscription {
-    newNum
-  }
-`;
-
-const getNums = gql`
-  {
-    heartbeat
-  }
-`;
-
-
-let unsubscribe=null;
-
-
-
-const Shit = () => {
-  console.log(useSubscription(
-    MEASUREMENT_SUBSCRIPTION))
-
-
-  return <h4>New comment: </h4>;
-
-
-
-
-
-
-
-  return ('shit')
-}
 
 export default () => (
 
-  <ApolloProvider client={clientNew}>
-    <Shit />
-  </ApolloProvider>
+  <h4>Shitbag</h4>
 );
