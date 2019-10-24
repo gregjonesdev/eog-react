@@ -37,9 +37,12 @@ const metrics = (state = metricsInitialState, action) => {
       )
       return Object.assign({}, state, {results: updatedResults})
     case LAST_MEASUREMENT_RECEIVED:
-      const measurement = action.getLastKnownMeasurement;
+      const measurement = action.measurement;
+      // console.log('reducer')
+      // console.log(measurement)
       const updatedMeasurement = state.results.map(metric =>
-        metric.name === measurement.metric ? {...metric, measurement } : metric)
+          metric.name === measurement.metric ? {...metric, measurement } : metric)
+      // console.log(Object.assign({}, state, {results: updatedMeasurement}))
       return Object.assign({}, state, {results: updatedMeasurement})
     default:
       return state

@@ -1,6 +1,7 @@
 import React from "react";
 import createStore from "./store";
 import { Provider } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import {
     MuiThemeProvider,
@@ -15,8 +16,9 @@ import Boxes from './components/app/Boxes';
 import Test from './components/app/Test';
 import Metrics from './components/app/Metrics';
 import Grid from '@material-ui/core/Grid';
-
+import { LAST_MEASUREMENT_RECEIVED, API_ERROR } from "./store/actions/metrics"
 import gql from 'graphql-tag';
+import { useSubscription } from '@apollo/react-hooks';
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -39,6 +41,35 @@ const theme = createMuiTheme({
 console.log(store.getState())
 
 
+
+const MEASUREMENT_SUBSCRIPTION = gql`
+  subscription {
+      newMeasurement {
+      metric
+      at
+      value
+      unit
+    }
+  }
+`;
+
+function Measurement({metric}) {
+  const dispatch = useDispatch();
+
+  const { data } = useSubscription(
+    MEASUREMENT_SUBSCRIPTION
+  );
+  //
+  if (data && data.newMeasurement ) {
+    const measurement = data.newMeasurement
+    dispatch({ type: LAST_MEASUREMENT_RECEIVED, measurement });
+  //   return <h1>{data.newMeasurement.value}</h1>
+
+  }
+  return null;
+}
+
+
 const App = props => (
   <MuiThemeProvider theme={theme}>
     <CssBaseline />
@@ -59,7 +90,7 @@ const App = props => (
             <Boxes />
           </Grid>
           <Grid item xs={12}>
-          <Test />
+          <Measurement />
             <Chart />
           </Grid>
         </Grid>

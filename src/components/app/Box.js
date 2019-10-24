@@ -6,30 +6,7 @@ import { LAST_MEASUREMENT_RECEIVED, API_ERROR } from "../../store/actions/metric
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from '@material-ui/core/Grid';
-import gql from 'graphql-tag';
-import { useSubscription } from '@apollo/react-hooks';
 
-const MEASUREMENT_SUBSCRIPTION = gql`
-  subscription {
-      newMeasurement {
-      metric
-      at
-      value
-      unit
-    }
-  }
-`;
-
-function Measurement({metric}) {
-  const { data } = useSubscription(
-    MEASUREMENT_SUBSCRIPTION
-  );
-
-  if (data && data.newMeasurement.metric ) {
-    return <h1>{data.newMeasurement.value}</h1>
-  }
-  return null;
-}
 
 const buildQuery = (metricName) => {
   return `
@@ -71,6 +48,8 @@ const Box = ({metric}) => {
     getMeasurements
   );
 
+  console.log(measurements)
+
   let latestMeasurement
   measurements.map(item => {
     if (Boolean(item) && item.metric === metric) {
@@ -80,27 +59,27 @@ const Box = ({metric}) => {
   })
 
 
-  const query = buildQuery(metric)
-  const [result] = useQuery({
-    query
-  });
-  const { fetching, data, error } = result;
-
-
-  useEffect(
-    () => {
-      if (error) {
-        dispatch({ type: API_ERROR, error: error.message });
-        return;
-      }
-      if (!data) return;
-      const { getLastKnownMeasurement } = data;
-      dispatch({ type: LAST_MEASUREMENT_RECEIVED, getLastKnownMeasurement });
-    },
-    [dispatch, data, error]
-  );
-
-  if (fetching) return <LinearProgress />;
+  // const query = buildQuery(metric)
+  // const [result] = useQuery({
+  //   query
+  // });
+  // const { fetching, data, error } = result;
+  //
+  //
+  // useEffect(
+  //   () => {
+  //     if (error) {
+  //       dispatch({ type: API_ERROR, error: error.message });
+  //       return;
+  //     }
+  //     if (!data) return;
+  //     const { getLastKnownMeasurement } = data;
+  //     dispatch({ type: LAST_MEASUREMENT_RECEIVED, getLastKnownMeasurement });
+  //   },
+  //   [dispatch, data, error]
+  // );
+  //
+  // if (fetching) return <LinearProgress />;
 
 
   return (
@@ -111,7 +90,7 @@ const Box = ({metric}) => {
             <hr/>
             { latestMeasurement ?
               <div>
-                <Measurement metric={metric} />
+                <h1> {latestMeasurement.value}</h1>
                 <span>{latestMeasurement.unit}</span>
               </div> :
               <div>
