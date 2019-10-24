@@ -6,7 +6,30 @@ import { LAST_MEASUREMENT_RECEIVED, API_ERROR } from "../../store/actions/metric
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from '@material-ui/core/Grid';
+import gql from 'graphql-tag';
+import { useSubscription } from '@apollo/react-hooks';
 
+const MEASUREMENT_SUBSCRIPTION = gql`
+  subscription {
+      newMeasurement {
+      metric
+      at
+      value
+      unit
+    }
+  }
+`;
+
+function Measurement({metric}) {
+  const { data } = useSubscription(
+    MEASUREMENT_SUBSCRIPTION
+  );
+
+  if (data && data.newMeasurement.metric ) {
+    return <h1>{data.newMeasurement.value}</h1>
+  }
+  return null;
+}
 
 const buildQuery = (metricName) => {
   return `
@@ -88,13 +111,14 @@ const Box = ({metric}) => {
             <hr/>
             { latestMeasurement ?
               <div>
-                <h1>{latestMeasurement.value}</h1>
+                <Measurement metric={metric} />
                 <span>{latestMeasurement.unit}</span>
               </div> :
               <div>
                 <h2>"No Data Received"</h2>
               </div>
             }
+
           </CardContent>
         </Card>
       </Grid>

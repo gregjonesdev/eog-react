@@ -19,21 +19,6 @@ const GET_MEASUREMENT = gql`
 
 export default () => (
 
-  <Query query={GET_MEASUREMENT}>
-  {({ data, loading, error, subscribeToMore }) => {
-    if (!data) {
-      return null;
-    }
-    if (loading) {
-      return <span>Loading...</span>;
-    }
-    if (error) {
-      return <p>Error</p>;
-    }
 
-    const { value, unit } = data.getLastKnownMeasurement;
-
-    return <TestChild value={value} unit={unit} subscribeToMore={subscribeToMore}></TestChild>;
-  }}
-  </Query>
+<TestChild></TestChild>
 );
