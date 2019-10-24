@@ -23,7 +23,7 @@ import { SubscriptionClient } from 'subscriptions-transport-ws';
 const URL = 'react.eogresources.com';
 
 const clientNew = new ApolloClient({
-  uri: `https://${URL}/graphql/`,
+  uri: `https://${URL}/graphql`,
 });
 
 const wsLink = new WebSocketLink({
@@ -36,18 +36,18 @@ const wsLink = new WebSocketLink({
 const httpLink = new HttpLink({
   uri: `https://${URL}/graphql`
 });
-
-const link = split(
-  ({ query }) => {
-    const definition = getMainDefinition(query);
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
-    );
-  },
-  wsLink,
-  httpLink,
-);
+//
+// const link = split(
+//   ({ query }) => {
+//     const definition = getMainDefinition(query);
+//     return (
+//       definition.kind === 'OperationDefinition' &&
+//       definition.operation === 'subscription'
+//     );
+//   },
+//   wsLink,
+//   httpLink,
+// );
 
 const MEASUREMENT_SUBSCRIPTION = gql`
   subscription {
@@ -89,36 +89,27 @@ const getNums = gql`
 
 let unsubscribe=null;
 
+
+
+const Shit = () => {
+  console.log(useSubscription(
+    MEASUREMENT_SUBSCRIPTION))
+
+
+  return <h4>New comment: </h4>;
+
+
+
+
+
+
+
+  return ('shit')
+}
+
 export default () => (
+
   <ApolloProvider client={clientNew}>
-  <Query query={buildQuery}>
-    {({ loading, data, subscribeToMore }) => {
-      if (loading) {
-        return null;
-      }
-      if (!unsubscribe) {
-        unsubscribe = subscribeToMore({
-          document: MEASUREMENT_SUBSCRIPTION,
-          updateQuery: (prev, { subscriptionData }) => {
-            if (!subscriptionData.data) return prev;
-            console.log(subscriptionData)
-            // const { newNum } = subscriptionData.data;
-            // return {
-            //   ...prev,
-            //   getNums: ["...prev.getNums", "newNum"]
-            // };
-          }
-        });
-      }
-
-      return <div></div>;
-    }}
-
-
-
-
-
-
-  </Query>
+    <Shit />
   </ApolloProvider>
 );
