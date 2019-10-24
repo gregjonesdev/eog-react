@@ -12,7 +12,6 @@ import Header from "./components/app/Header";
 import Wrapper from "./components/app/Wrapper";
 import Chart from './components/app/Chart';
 import Boxes from './components/app/Boxes';
-import Test from './components/app/Test';
 import Metrics from './components/app/Metrics';
 import Grid from '@material-ui/core/Grid';
 
@@ -59,7 +58,6 @@ const App = props => (
             <Boxes />
           </Grid>
           <Grid item xs={12}>
-          <Test />
             <Chart />
           </Grid>
         </Grid>

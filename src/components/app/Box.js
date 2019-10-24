@@ -21,12 +21,18 @@ const MEASUREMENT_SUBSCRIPTION = gql`
 `;
 
 function Measurement({metric}) {
+  const dispatch = useDispatch();
+
+  console.log(metric.name)
   const { data } = useSubscription(
     MEASUREMENT_SUBSCRIPTION
   );
 
-  if (data && data.newMeasurement.metric ) {
-    return <h1>{data.newMeasurement.value}</h1>
+  if (data && data.newMeasurement.metric === metric.name ) {
+    console.log("new " + metric.name + " value: " )
+    console.log(data.newMeasurement.value)
+    const getLastKnownMeasurement = data.newMeasurement;
+    dispatch({ type: LAST_MEASUREMENT_RECEIVED, getLastKnownMeasurement });
   }
   return null;
 }
@@ -58,69 +64,75 @@ const getMeasurements = state => {
 
 export default ({metric}) => {
   return (
-    <Provider value={client}>
-      <Box metric={metric}/>
-    </Provider>
+    <Grid item>
+      <Card>
+        <CardContent>
+          <h3 style={{ padding: "0 10px"}}>{metric.name}</h3>
+          <hr/>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
+//
+// const Box = ({metric}) => {
+//   // const dispatch = useDispatch();
+//   //
+//   // const measurements = useSelector(
+//   //   getMeasurements
+//   // );
+//   //
+//   // let latestMeasurement
+//   // measurements.map(item => {
+//   //   if (Boolean(item) && item.metric === metric) {
+//   //     latestMeasurement = item
+//   //   }
+//   //   return item
+//   // })
+//   //
+//   //
+//   // const query = buildQuery(metric)
+//   // const [result] = useQuery({
+//   //   query
+//   // });
+//   // const { fetching, data, error } = result;
+//   //
+//   //
+//   // useEffect(
+//   //   () => {
+//   //     if (error) {
+//   //       dispatch({ type: API_ERROR, error: error.message });
+//   //       return;
+//   //     }
+//   //     if (!data) return;
+//   //     const { getLastKnownMeasurement } = data;
+//   //     dispatch({ type: LAST_MEASUREMENT_RECEIVED, getLastKnownMeasurement });
+//   //   },
+//   //   [dispatch, data, error]
+//   // );
+//   //
+//   // if (fetching) return <LinearProgress />;
+//
+//
+//   return (
+//       <Grid item>
+//         <Card>
+//           <CardContent>
+//             <h3 style={{ padding: "0 10px"}}>{metric}</h3>
+//             <hr/>
+//           </CardContent>
+//         </Card>
+//       </Grid>
+//   );
+// };
 
-const Box = ({metric}) => {
-  const dispatch = useDispatch();
 
-  const measurements = useSelector(
-    getMeasurements
-  );
-
-  let latestMeasurement
-  measurements.map(item => {
-    if (Boolean(item) && item.metric === metric) {
-      latestMeasurement = item
-    }
-    return item
-  })
-
-
-  const query = buildQuery(metric)
-  const [result] = useQuery({
-    query
-  });
-  const { fetching, data, error } = result;
-
-
-  useEffect(
-    () => {
-      if (error) {
-        dispatch({ type: API_ERROR, error: error.message });
-        return;
-      }
-      if (!data) return;
-      const { getLastKnownMeasurement } = data;
-      dispatch({ type: LAST_MEASUREMENT_RECEIVED, getLastKnownMeasurement });
-    },
-    [dispatch, data, error]
-  );
-
-  if (fetching) return <LinearProgress />;
-
-
-  return (
-      <Grid item>
-        <Card>
-          <CardContent>
-            <h3 style={{ padding: "0 10px"}}>{metric}</h3>
-            <hr/>
-            { latestMeasurement ?
-              <div>
-                <Measurement metric={metric} />
-                <span>{latestMeasurement.unit}</span>
-              </div> :
-              <div>
-                <h2>"No Data Received"</h2>
-              </div>
-            }
-
-          </CardContent>
-        </Card>
-      </Grid>
-  );
-};
+// { latestMeasurement ?
+//   <div>
+//     <Measurement metric={metric} />
+//     <span>{latestMeasurement.unit}</span>
+//   </div> :
+//   <div>
+//     <h2>"No Data Received"</h2>
+//   </div>
+// }
