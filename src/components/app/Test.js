@@ -1,37 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import TestChild from "./TestChild";
-import { useDispatch, useSelector } from "react-redux";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import { LAST_MEASUREMENT_RECEIVED, API_ERROR } from "../../store/actions/metrics"
-import { ApolloProvider, Query, Subscription } from 'react-apollo';
-import { useSubscription } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { WebSocketLink } from 'apollo-link-ws';
-import { ApolloLink } from 'apollo-link';
-import { split } from 'apollo-link';
-import ApolloClient from 'apollo-boost';
-import { Provider, client, useQuery } from "../../core/client";
-import { HttpLink, createHttpLink } from 'apollo-link-http';
-import { ReduxCache, apolloReducer } from 'apollo-cache-redux';
-import ReduxLink from 'apollo-link-redux';
-import { onError } from 'apollo-link-error';
-import { getMainDefinition } from 'apollo-utilities';
-import { SubscriptionClient } from 'subscriptions-transport-ws';
-// import { ssrExchange, Client, defaultExchanges, Subscription, subscriptionExchange, dedupExchange, cacheExchange, fetchExchange } from 'urql';
+import { Query } from "react-apollo";
 
-const MEASUREMENT_SUBSCRIPTION = gql`
-  subscription {
-      newMeasurement {
-      metric
-      at
-      value
-      unit
-    }
-  }
-`;
-
-
-const buildQuery = gql`
+const GET_MEASUREMENT = gql`
   query {
       getLastKnownMeasurement(
         metricName: "tubingPressure"
@@ -47,5 +19,21 @@ const buildQuery = gql`
 
 export default () => (
 
-  <h4>Shitbag</h4>
+  <Query query={GET_MEASUREMENT}>
+  {({ data, loading, error, subscribeToMore }) => {
+    if (!data) {
+      return null;
+    }
+    if (loading) {
+      return <span>Loading...</span>;
+    }
+    if (error) {
+      return <p>Error</p>;
+    }
+
+    const { value, unit } = data.getLastKnownMeasurement;
+
+    return <TestChild value={value} unit={unit} subscribeToMore={subscribeToMore}></TestChild>;
+  }}
+  </Query>
 );
