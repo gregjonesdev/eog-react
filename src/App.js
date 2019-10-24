@@ -1,7 +1,7 @@
 import React from "react";
 import createStore from "./store";
 import { Provider } from "react-redux";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import {
     MuiThemeProvider,
@@ -15,7 +15,7 @@ import Chart from './components/app/Chart';
 import Boxes from './components/app/Boxes';
 import Metrics from './components/app/Metrics';
 import Grid from '@material-ui/core/Grid';
-import { LAST_MEASUREMENT_RECEIVED, API_ERROR } from "./store/actions/metrics"
+import { LAST_MEASUREMENT_RECEIVED } from "./store/actions/metrics"
 import gql from 'graphql-tag';
 import { useSubscription } from '@apollo/react-hooks';
 
