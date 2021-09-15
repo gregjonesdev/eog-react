@@ -41,7 +41,7 @@
     "recharts": "^1.7.1",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.3",
-    "set-value": "^2.0.1",
+    "set-value": "^4.0.1",
     "subscriptions-transport-ws": "^0.9.16",
     "typescript": "^3.6.4",
     "urql": "^1.1.1"
