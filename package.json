@@ -38,7 +38,7 @@
     "react-toastify": "^4.4.0",
     "react-use": "^9.4.0",
     "rebound": "^0.1.0",
-    "recharts": "^1.7.1",
+    "recharts": "^2.1.14",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.3",
     "set-value": "^2.0.1",
